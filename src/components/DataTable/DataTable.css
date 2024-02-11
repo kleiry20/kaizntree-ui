@@ -1,0 +1,17 @@
+.table {
+  .table-header {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(224, 224, 224, 1);
+    border-radius: var(--unstable_DataGrid-radius);
+    border-bottom: none;
+    border-top: none;
+    padding: 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+}

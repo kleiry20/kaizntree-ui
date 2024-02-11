@@ -1,0 +1,51 @@
+.dashboard {
+  padding-right: 36px;
+
+  .btn-green {
+    background-color: #43a047;
+    color: #fcfdfc;
+    font-weight: 200;
+  }
+
+  .dashboard--wrapper {
+    /* border: 1px solid; */
+
+    .dashboard--top {
+      display: flex;
+      justify-content: space-between;
+      margin-right: 50px;
+
+      .dashboard--right {
+        display: flex;
+        width: 26rem;
+        flex-direction: column;
+        justify-content: center;
+
+        .dashboard--right-child {
+          display: flex;
+          align-items: center;
+          gap: 6rem;
+
+          .metrics {
+            justify-content: space-between;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.row-layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.col-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.green {
+  color: #43a047;
+}

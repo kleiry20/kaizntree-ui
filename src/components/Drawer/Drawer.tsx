@@ -13,26 +13,16 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import "./Drawer.css";
-
-// icons
 import CategoryIcon from "@mui/icons-material/Category";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import DataTable from "../DataTable/DataTable";
 import { Button } from "@mui/material";
 import AccordionComponent from "../AccordionComponent/AccordionComponent";
-import EnhancedTable from "../DataTable/DataTable2";
-import SearchField from "../SearchField/SearchField";
 
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
   window?: () => Window;
 }
 
@@ -57,38 +47,59 @@ export default function ResponsiveDrawer(props: Props) {
   };
 
   const drawer = (
-    <div>
-      {/* <Toolbar /> */}
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        gap: "4.5rem",
+      }}
+    >
+      <div>
+        <List>
+          {[
+            "Home",
+            "Items",
+            "Stock",
+            "Build",
+            "Customers",
+            "Sales Orders",
+            "Suppliers",
+            "Manufacturers",
+            "Purchase Orders",
+            "Reports",
+          ].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </div>
+
+      <div>
+        <List>
+          {["Help", "Integrations", "Logout", "My Profile"].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
+        </List>
+      </div>
     </div>
   );
 
-  // Remove this const when copying and pasting into your project.
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -101,28 +112,12 @@ export default function ResponsiveDrawer(props: Props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      ></AppBar>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -130,7 +125,7 @@ export default function ResponsiveDrawer(props: Props) {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -157,7 +152,7 @@ export default function ResponsiveDrawer(props: Props) {
         </Drawer>
       </Box>
 
-      {/* right box */}
+      {/* dashboard content */}
       <Box
         className="dashboard"
         component="main"
@@ -167,20 +162,26 @@ export default function ResponsiveDrawer(props: Props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
-
-        <br />
         <div className="dashboard--wrapper">
           <section className="dashboard--top">
             <div>
-              <h2 style={{ fontSize: "30px" }}>Item Dashboard</h2>
+              <h2 style={{ fontSize: "30px" }}>
+                {" "}
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: "none" } }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                Item Dashboard
+              </h2>
               <p style={{ fontWeight: "400" }}>All items</p>
             </div>
             <div className="dashboard--right">
-              <div
-                className="dashboard--right-child"
-                // style={{ borderBottom: "1px solid gray" }}
-              >
+              <div className="dashboard--right-child">
                 <AccountTreeIcon />
                 <div className="row-layout metrics">
                   <p>Total Categories</p>
@@ -210,10 +211,8 @@ export default function ResponsiveDrawer(props: Props) {
 
         <br />
         <br />
-
         <AccordionComponent />
         <DataTable />
-        {/* <EnhancedTable/> */}
       </Box>
     </Box>
   );

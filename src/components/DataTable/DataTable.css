@@ -7,11 +7,21 @@
     border-bottom: none;
     border-top: none;
     padding: 1rem;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+}
 
+.inStock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
 
+  .inStock-status {
+    border-radius: 50%;
+    width: 0.563rem;
+    height: 0.563rem;
+  }
 }

@@ -1,48 +1,195 @@
 import * as React from "react";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
 import "./DataTable.css";
-import { Button, IconButton } from "@mui/material";
+import { Badge, Button, IconButton, Link } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import SearchField from "../SearchField/SearchField";
 import ViewColumnIcon from "@mui/icons-material/ViewColumn";
+import SearchField2 from "../SearchField/SearchField2";
+
+// icons
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+// SKU, Name, Tags, Category, In Stock, Available Stock
+
+export function Name({ value }: { value: string }) {
+  return <Link>{value}</Link>;
+}
+
+export function Category({ value }: { value: string }) {
+  return <Link>{value}</Link>;
+}
+
+export function Tags({ value }: { value: string }) {
+  return (
+    <>
+      <Badge>
+        <span>{value}</span>
+        <SettingsIcon />
+        <AttachMoneyIcon />
+        <ShoppingCartIcon />
+      </Badge>
+    </>
+  );
+}
+
+export function InStock({
+  value,
+}: {
+  value: { status: string; count: number };
+}) {
+  return (
+    <>
+      <div className="inStock">
+        <div
+          className="inStock-status"
+          style={{ backgroundColor: `${value.status}` }}
+        ></div>
+        <p className="inStock-count">{value.count}</p>
+      </div>
+    </>
+  );
+}
+
+export function AvailableStock({
+  value,
+}: {
+  value: { status: string; count: number };
+}) {
+  return (
+    <>
+      <div className="inStock">
+        <div
+          className="inStock-status"
+          style={{ backgroundColor: `${value.status}` }}
+        ></div>
+        <p className="inStock-count">{value.count}</p>
+      </div>
+    </>
+  );
+}
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "sku", headerName: "SKU", width: 170 },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
+    field: "name",
+    headerName: "Name",
+    width: 290,
+    renderCell: (params: GridCellParams) => (
+      <Name value={params.value?.toString() || ""} />
+    ),
   },
   {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    field: "tags",
+    headerName: "Tags",
+    width: 180,
+    renderCell: (params: GridCellParams) => (
+      <Tags value={params.value?.toString() || ""} />
+    ),
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    width: 150,
+    renderCell: (params: GridCellParams) => (
+      <Category value={params.value?.toString() || ""} />
+    ),
+  },
+  {
+    field: "inStock",
+    headerName: "In Stock",
+    width: 150,
+    renderCell: (params: GridCellParams) => (
+      <InStock value={params.value as { status: string; count: number }} />
+    ),
+  },
+  {
+    field: "availableStock",
+    headerName: "Available Stock",
+    width: 150,
+    renderCell: (params: GridCellParams) => (
+      <AvailableStock
+        value={params.value as { status: string; count: number }}
+      />
+    ),
   },
 ];
 
 const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  {
+    id: 1,
+    sku: "ETSY-FOREST",
+    tags: "Etsy",
+    name: "Etsy Bundle Pack",
+    category: "Bundles",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 2,
+    sku: "NY-ETSY",
+    tags: null,
+    name: "NY Print Single Print Beeswax Wrap",
+    category: "Bundles",
+    inStock: { status: "red", count: 2 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 3,
+    sku: "BWAX",
+    tags: null,
+    name: "Beeswax",
+    category: "Raw Materials",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 4,
+    sku: "OCN-S",
+    tags: null,
+    name: "Ocean Single Beeswax",
+    category: "Raw Materials",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 5,
+    sku: "JNGL-S",
+    tags: "Etsy",
+    name: "Jungle Print Single Beeswax Wrap",
+    category: "Raw Materials",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 6,
+    sku: "OCNCOT",
+    tags: null,
+    name: "Cotton - Ocean Print",
+    category: "Raw Materials",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
+  {
+    id: 7,
+    sku: "HNYCOT",
+    tags: null,
+    name: "Cotton - Honeycomb Print",
+    category: "Raw Materials",
+    inStock: { status: "green", count: 20 },
+    availableStock: { status: "red", count: 13 },
+  },
 ];
 
 export default function DataTable() {
+  const handleSearch = (query: string) => {
+    console.log("Search query:", query);
+  };
+
   return (
-    <div className="table" style={{ height: 400, width: "100%" }}>
-      {/* Add your custom header or caption here */}
+    <div className="table" style={{ height: 300, width: "100%" }}>
       <div className="table-header" style={{ fontWeight: "bold" }}>
         <div style={{ display: "flex", gap: "1rem" }}>
           <Button className="btn-green">New Item</Button>
@@ -51,12 +198,13 @@ export default function DataTable() {
           </Button>
         </div>
         <div style={{ display: "flex", gap: "1rem" }}>
-          <SearchField />
-          <Button sx={{ border: "1px solid" }}>
-            <ViewColumnIcon />
+          {/* <SearchField /> */}
+          <SearchField2 onSearch={handleSearch} />
+          <Button sx={{ backgroundColor: "#556d7a" }}>
+            <ViewColumnIcon style={{ color: "#fff" }} />
           </Button>
-          <IconButton sx={{ border: "1px solid" }}>
-            <ViewColumnIcon />
+          <IconButton sx={{ backgroundColor: "#424242" }}>
+            <FilterAltIcon style={{ color: "#fff" }} />
           </IconButton>
         </div>
       </div>
@@ -65,13 +213,8 @@ export default function DataTable() {
       <DataGrid
         rows={rows}
         columns={columns}
-        // initialState={{
-        //   pagination: {
-        //     paginationModel: { page: 0, pageSize: 5 },
-        //   },
-        // }}
-        pageSizeOptions={[5, 10]}
         checkboxSelection
+        hideFooter={true}
       />
     </div>
   );

@@ -1,11 +1,10 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 
 export default function SearchField() {
   return (
-    <div style={{ height: "2rem", border: "1px solid" }}>
+    <div>
       <Autocomplete
         id="free-solo-demo"
         freeSolo
@@ -17,7 +16,6 @@ export default function SearchField() {
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
   { title: "The Godfather", year: 1972 },

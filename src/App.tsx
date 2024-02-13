@@ -1,24 +1,19 @@
 import React from "react";
 import "./App.css";
-import { Button, ThemeProvider, createTheme } from "@mui/material";
-import ResponsiveDrawer from "./components/Drawer/Drawer";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-const theme = createTheme();
+import ResponsiveDrawer from "./components/Drawer/Drawer";
+import Login from "./components/Login/Login";
 
 const App: React.FC = () => {
   return (
     <>
-      {/* <ThemeProvider theme={theme}>
-        <div>
-        <Button variant="contained" color="primary">
-          Hello Material-UI
-        </Button>
-      </div>
-      </ThemeProvider> */}
-      <ResponsiveDrawer />
-      {/* <div className="app-div">
-        <ResponsiveDrawer />
-      </div> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<ResponsiveDrawer />} />
+        </Routes>
+      </Router>
     </>
   );
 };
